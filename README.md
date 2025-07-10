@@ -76,4 +76,16 @@ my-project/
 
 ![events](image-7.png)
 
+## Matrix build test to test across multiple env
+
+![strategy](image-8.png)
+
+## Handling dependencies and services required for build process
+
+![nodes](image-9.png)
+
+## integrating code quality check
+
+![check](image-10.png)
+
 

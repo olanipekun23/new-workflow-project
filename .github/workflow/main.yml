@@ -72,5 +72,44 @@ jobs:
         echo "Received value from previous step: ${{" steps.step-one.outputs.value "}}"
         # Access the output of 'step-one' in 'step-two'.
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x, 16.x]
+
+
+
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
+
+
+- name: Run Linter
+  run: npx eslint .
+  # 'npx eslint .' runs the ESLint tool on all the files in your repository.
+  # ESLint is a static code analysis tool used to identify problematic patterns in JavaScript code.
+
+module.exports = {
+  extends: "eslint:recommended",
+  env: {
+    browser: true,
+    node: true,
+    es2021: true
+  },
+  rules: {
+    // Add custom rules here
+  }
+};
+
 
        
