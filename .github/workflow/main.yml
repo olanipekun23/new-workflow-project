@@ -1,0 +1,76 @@
+name: New Project Workflow
+
+
+on: [push]
+
+    jobs:
+
+      build:
+       
+       runs-on: ubuntu latest
+
+       steps:
+
+       - uses: action/checkout@v2
+
+
+       
+       - name: install dependencies
+
+
+         run: npm install
+
+       - name: build
+
+
+         run: npm run build
+
+       - name: Run test
+
+         run: npm test
+
+env:
+  CUSTOM_VAR: value
+  # Define an environment variable 'CUSTOM_VAR' at the workflow level.
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Use environment variable
+      run: echo $CUSTOM_VAR
+      # Access 'CUSTOM_VAR' in a step.
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Use secret
+      run: |
+        echo "Access Token: ${{" secrets.ACCESS_TOKEN "}}"
+        # Use 'ACCESS_TOKEN' secret defined in the repository settings.
+
+
+jobs:
+  conditional-job:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # The job runs only for push events to the 'main' branch.
+    steps:
+    - uses: actions/checkout@v2
+
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+    - id: step-one
+      run: echo "::set-output name=value::$(echo hello)"
+      # Set an output named 'value' in 'step-one'.
+    - id: step-two
+      run: |
+        echo "Received value from previous step: ${{" steps.step-one.outputs.value "}}"
+        # Access the output of 'step-one' in 'step-two'.
+
+
+       
